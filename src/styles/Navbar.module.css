@@ -1,0 +1,25 @@
+.navbarCN {
+    width: 100%;
+    /* border-bottom: 1px solid rgba(0, 0, 0, 0.093); */
+    top: 2rem;
+}
+.navbar {
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.middle {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+.navitem {
+    text-decoration: none;
+    color: rgb(100, 98, 98);
+}
+
+
+
+
+
