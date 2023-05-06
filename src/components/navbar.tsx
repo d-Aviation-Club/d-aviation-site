@@ -1,8 +1,7 @@
 import styles from '@/styles/Navbar.module.css'
 import { Button } from 'antd'
-
+import Image from 'next/image'
 import {useRef, useState, useEffect} from 'react'
-
 
 function Navbar() {
   const [navbar, setNavbar] = useState(false)
@@ -34,8 +33,8 @@ function Navbar() {
     return (
     <div id='navbar' className={`absolute flex w-full items-center justify-between text-white 
     transition-all top-0 z-50 p-6`} >
-      <div className="flex w-full justify-between">
-        <div className={styles.logo}>LOGO</div>
+      <div className="flex w-full justify-between items-center">
+        <div className="h-fit"><Image className="" src='/DAVIATION-LOGO-3.png' width={100} height={100} alt="D.Aviation Logo"></Image></div>
         <ul className={styles.middle}>
           <span>
             <a href="" className={`hover-underline-animation `}>Photo Gallery</a>

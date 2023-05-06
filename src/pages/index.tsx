@@ -20,21 +20,30 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   
   useEffect(()=>{
-   
     const parallax = document.getElementById('parallax')
-    const layer1 = document.getElementById('layer1cn')
-    const layerbg = document.getElementById('layerbg')
-    const layer2 = document.getElementById('layer2')
+    const cloud1 = document.getElementById('cloud1')
+    const cloud2 = document.getElementById('cloud2')
+    const cloud3 = document.getElementById('cloud3')
     const layer3 = document.getElementById('layer3')
     const header = document.getElementById('header')
     const plane = document.getElementById('plane')
+    const main = document.getElementById('main')
+    window.addEventListener("scroll", function () {
+      let offset = window.pageYOffset;
+      parallax.style.backgroundPositionY = offset * 0.7 + "px";
+      main.style.backgroundPositionY = offset * 0.1 + "px";
+      cloud2.style.top = offset * -.1 +'px'
+      cloud1.style.top = offset * -0.3 +'px'
+      cloud3.style.top = offset * -0.5 +'px'
+      // DIV 1 background will move slower than other elements on scroll.
+    });
     // const jude = document.getElementById('jude')
     window.addEventListener('scroll', ()=>{
       const value = window.scrollY;
       // layer1.style.marginTop = value * 3.5 + 'px'
-      plane.style.marginLeft = value * -2.5 + 'px'
-      layer2.style.top = value * 0.5 + 'px';
-      layer1.style.top = value * 1.5 + 'px';
+      // plane.style.marginLeft = value * -2.5 + 'px'
+      // layer2.style.top = value * 0.5 + 'px';
+      // layer1.style.top = value * 1.5 + 'px';
       // jude.style.marginTop = value * -0.5 + 'px';
       // header.style.top = -value * -1.5 + 'px';
     })
@@ -50,22 +59,19 @@ export default function Home() {
       </Head>
      
       {/* CLASSES FOR OVAL THING: h-[1000rem]  */}
-      <main className={`
-      ${styles.main} relative
-       h-full pb-[100rem] `}
+      <section id='parallax' className={`z-1 h-[130vh] lg:h-[140vh] bg-cover w-full bg-[#1fa0e0] bg-center bg-[url('/Cloudedsky1.jpg')]`}>
+        
+      </section>
+      <main id='main' className={`
+      relative
+       h-full bg-white`}
       >
-        {/* <h1 className="text-[3rem] font-medium text-capitilize text-[#303356]" id="header"> Welcome to D.Aviation</h1> */}
-        <section id='parallax' className="parallax z-1 bg-[#1fa0e0]">
-            <div id="layer1cn">
-              <img src="/Layer1.png" id="layer1" alt="" />
-            </div>
-            {/* <div id='jude' className="z-0">
-              <h1>By JUDE</h1>
-            </div> */}
-            <img src="/Plane.png" className='z-10' id="plane" alt="" />
-            <img src="/Layer2.png" id="layer2" alt="" />
-            <img src="/Layer3v2.png" className='z-10' id="layer3" alt="" />
-        </section>
+        <div className='w-[130vw] z-10  opacity-100 brightness-200	 gray-scale-[50%] absolute -top-[8rem] min-[1500px]:-top-[34rem] min-[1300px]:-top-[30rem] xsm:-top-[14rem]'>
+          <Image id="cloud1" className="w-full -right-[80%] z-10 -left-20 absolute top-0" src='/Clouds1.png' width={100} height={100} alt="cloudimage1"></Image>
+          <Image id="cloud2" className="w-full -left-[10%] z-10  absolute top-0 min-[1400px]:-top-20" src='/Clouds2.png' width={100} height={100} alt="cloudimage1"></Image>
+          <Image id="cloud3" className="w-full -left-[30%] z-10 absolute -top-40 min-[1400px]:-top-[20rem]" src='/Clouds3.png' width={100} height={100} alt="cloudimage1"></Image>
+        </div>
+       
         {/* <section className={styles.parallax}>
           <div className="parallax-inner">
             <br />
@@ -73,7 +79,7 @@ export default function Home() {
             <br />
           </div>
         </section> */}
-        <section className='relative grid grid-cols-1 sm:grid-cols-5 my-[10rem] w-full max-w-[80vw] justify-between gap-12 m-auto max-md:flex-col items-start'>
+        <section className='z-20 relative grid grid-cols-1 sm:grid-cols-5 py-[10rem] w-full max-w-[80vw] justify-between gap-12 m-auto max-md:flex-col items-start'>
           <div className="col-span-3 bg-[#EBF5FA] rounded-md ">
             <img className='w-full h-auto rounded-md' src="https://airlines.iata.org/sites/default/files/event_images/Drone-shutterstock_698384557.jpg" alt="" />
           </div>
@@ -83,7 +89,7 @@ export default function Home() {
             <Button type="primary"  className='bg-primary mt-5' color="primary" variant="contained">Drone Program</Button>
           </div>
         </section>
-        <section className='relative grid grid-cols-1 sm:grid-cols-5 my-[10rem] w-full max-w-[80vw] justify-between gap-12 m-auto max-md:flex-col items-start'>
+        <section className='relative grid grid-cols-1 sm:grid-cols-5 py-[10rem] w-full max-w-[80vw] justify-between gap-12 m-auto max-md:flex-col items-start'>
           <div className='flex col-span-2 gap-2 flex-col align-start '>
             <h1 className="text-[2rem] font-medium">Photos!</h1>
             <p>Check out some awesome photos of the program.</p>
