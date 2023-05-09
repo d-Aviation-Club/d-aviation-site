@@ -10,7 +10,14 @@ module.exports = {
   ],
   theme: {
     extend: {
-      primary: "primary"
+      primary: "primary",
+      fontFamily: {
+        sans: ['var(--font-inter)'],
+        mono: ['var(--font-roboto-mono)'],
+      },
+      backgroundSize: {
+        '100vh': '100vw 200vh',
+      }
     },
   },
   plugins: [],

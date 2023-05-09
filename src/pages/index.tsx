@@ -1,12 +1,13 @@
+import { gsap } from 'gsap';
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 import background from '../images/background.jpg'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 // import Button from '@mui/material/Button';
 import { Button } from 'antd'
-
 import {
   faSearch,
   faAngleDown,
@@ -14,40 +15,94 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Parallax, ParallaxLayer } from "@react-spring/parallax"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Controller, Scene } from 'react-scrollmagic';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  
-  useEffect(()=>{
+  const comp = useRef(); // create a ref for the root level element (for scoping)
+  const circle = useRef();
+  gsap.registerPlugin(ScrollTrigger);
+
+  useLayoutEffect(()=>{
     const parallax = document.getElementById('parallax')
     const cloud1 = document.getElementById('cloud1')
     const cloud2 = document.getElementById('cloud2')
     const cloud3 = document.getElementById('cloud3')
-    const layer3 = document.getElementById('layer3')
-    const header = document.getElementById('header')
     const plane = document.getElementById('plane')
     const main = document.getElementById('main')
     window.addEventListener("scroll", function () {
       let offset = window.pageYOffset;
-      parallax.style.backgroundPositionY = offset * 0.7 + "px";
-      main.style.backgroundPositionY = offset * 0.1 + "px";
-      cloud2.style.top = offset * -.1 +'px'
-      cloud1.style.top = offset * -0.3 +'px'
-      cloud3.style.top = offset * -0.5 +'px'
+      // parallax.style.backgroundPositionY = offset * 0.7 + "px";
+        main.style.backgroundPositionY = offset * 0.1 + "px";
+        console.log(offset)
+        cloud2.style.top = offset * -.1 +'px'
+        cloud1.style.top = offset * -0.2 +'px'
+        cloud3.style.top = offset * -0.3 +'px'
+      // plane.style.left = offset * 5.5 +'px'
+      // plane.style.left = offset * 2 + 'px'
       // DIV 1 background will move slower than other elements on scroll.
     });
-    // const jude = document.getElementById('jude')
-    window.addEventListener('scroll', ()=>{
-      const value = window.scrollY;
-      // layer1.style.marginTop = value * 3.5 + 'px'
-      // plane.style.marginLeft = value * -2.5 + 'px'
-      // layer2.style.top = value * 0.5 + 'px';
-      // layer1.style.top = value * 1.5 + 'px';
-      // jude.style.marginTop = value * -0.5 + 'px';
-      // header.style.top = -value * -1.5 + 'px';
-    })
-  })
+    var textheight = document.getElementById("bigtextcn").offsetHeight;
+    textheight *= -0.1
+        console.log(textheight)
+      const ctx = gsap.context((self) => {
+        const parallax = document.getElementById('parallax');
+        let plane = document.querySelector("#plane");
+        
+        gsap.to("#parallax",{scrollTrigger:{
+          trigger: "#parallax",
+          pin: true,
+          pinSpacing: false,
+          start: "top top",
+          end: "bottom top",
+          scrub: 1
+        }});  
+        gsap.to("#plane",{
+          y: -380,
+          x: 1000,
+          rotation: 0.01,
+          duration: 3000,
+          // ease: "power1.out",
+          scrollTrigger: {
+              trigger: "body",
+              start: "top top",
+              end: "+=500",
+              scrub: 1,
+              // onEnter: function() { gsap.to("#plane", { scaleX: 1, rotation: 0 }) },
+              // onLeave: function() { gsap.to("#plane", { scaleX: 1, rotation: 0 }) },
+          }
+        });   
+        gsap.to("#text1",{
+          y: -textheight,
+          x: 0,
+          // ease: "power1.out",
+          scrollTrigger: {
+              trigger: "body",
+              start: "top top",
+              end: "+=500",
+              scrub: 1,
+              // onEnter: function() { gsap.to("#plane", { scaleX: 1, rotation: 0 }) },
+              // onLeave: function() { gsap.to("#plane", { scaleX: 1, rotation: 0 }) },
+          }
+        });   
+        gsap.to("#text2",{
+          y: textheight,
+          x: 0,
+          color: '#EE6C4D',
+          ease: "power1.out",
+          scrollTrigger: {
+              trigger: "body",
+              start: "top top",
+              end: "+=500",
+              scrub: 1,
+              onEnter: function() { gsap.to("#plane", { scaleX: 1, rotation: 0 }) },
+              onLeave: function() { gsap.to("#plane", { scaleX: 1, rotation: 0 }) },
+          }
+        });   
+      })
+      return () => ctx.revert(); // cleanup
+  }, [])
   
   return (
     <>
@@ -57,19 +112,30 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-     
       {/* CLASSES FOR OVAL THING: h-[1000rem]  */}
-      <section id='parallax' className={`z-1 h-[130vh] lg:h-[140vh] bg-cover w-full bg-[#1fa0e0] bg-center bg-[url('/Cloudedsky1.jpg')]`}>
+      <section id='parallax' className={`z-1 h-[240vh] fixed top-0 xl:h-[240vh] bg-100vh w-full bg-[#1fa0e0] bg-center `}>
+
+       <Image id="parallaximg" src='/cloudedsky1.jpg' width={100} height={100} alt="plane image" className='absolute top-0 left-0 z-10 w-[100vw] h-[140vh] object-cover' unoptimized></Image>
+
+       <div id="bigtextcn" className='text-[#133C54] w-full text-center absolute top-[50vh] left-[50vw] translate-y-[-50%] translate-x-[-50%] z-20 text-[10rem] max-md:text-[7.4rem]'>
+          <h1 id="text1" className=' parallaxTitle'>WELCOME TO</h1>
+          <h1 id="text2" className='parallaxTitle'>D.AVIATION</h1>
+        </div>
         
+        <Image id="plane" src='/plane-assets/daviation-plane-xl.webp'
+        width={100} height={100} alt="plane image" className='absolute top-[50vh] left-[50vw] translate-y-[-50%] translate-x-[-50%] z-20 w-full h-auto max-w-[70rem]' blurDataURL="URL"
+        placeholder="blur" unoptimized priority></Image>
       </section>
       <main id='main' className={`
       relative
        h-full bg-white`}
       >
-        <div className='w-[130vw] z-10  opacity-100 brightness-200	 gray-scale-[50%] absolute -top-[8rem] min-[1500px]:-top-[34rem] min-[1300px]:-top-[30rem] xsm:-top-[14rem]'>
-          <Image id="cloud1" className="w-full -right-[80%] z-10 -left-20 absolute top-0" src='/Clouds1.png' width={100} height={100} alt="cloudimage1"></Image>
-          <Image id="cloud2" className="w-full -left-[10%] z-10  absolute top-0 min-[1400px]:-top-20" src='/Clouds2.png' width={100} height={100} alt="cloudimage1"></Image>
-          <Image id="cloud3" className="w-full -left-[30%] z-10 absolute -top-40 min-[1400px]:-top-[20rem]" src='/Clouds3.png' width={100} height={100} alt="cloudimage1"></Image>
+        <div className='w-[130vw] z-10  opacity-100 brightness-200	 gray-scale-[50%] absolute -top-[8rem] min-[1500px]:-top-[10rem] min-[1300px]:-top-[20rem] xsm:-top-[14rem]'>
+          <Image id="cloud1" className="w-full 
+          xl:w-[70%] xl:mt-[5rem]
+          -right-[80%] z-10 -left-20 absolute -top-40" src='/Clouds1.png' width={100} height={100} alt="cloudimage1"></Image>
+          <Image id="cloud2" className="w-full xl:w-[70%] xl:mt-20 -left-[10%] z-10  absolute top-0 min-[1400px]:-top-20" src='/Clouds2.png' width={100} height={100} alt="cloudimage1"></Image>
+          <Image id="cloud3" className="w-full xl:w-[40%] xl:left-[60%] lg:mt-[10rem] -left-[30%] z-10 absolute -top-40 " src='/Clouds3.png' width={100} height={100} alt="cloudimage1"></Image>
         </div>
        
         {/* <section className={styles.parallax}>
