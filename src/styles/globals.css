@@ -12,7 +12,7 @@
 @tailwind utilities;
 @tailwind base;
 .parallaxTitle {
-  font-family: "AmericanCaptain", sansser
+  font-family: "AmericanCaptain"
 }
 .ant-btn-primary {
   background-color: #303356;
@@ -33,7 +33,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  font-family: 'Monsterrat', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 500;
 }
 
@@ -41,6 +41,7 @@ html,
 body {
   max-width: 100vw;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .flex{
@@ -172,4 +173,53 @@ a {
   background-image: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255, 1) 90%);
   width: 100%;
   height: 4em
+}
+
+.myButton::after {
+    /* content: ''; 
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0.5rem;
+    right: 0.5rem;
+     */
+    content: attr(title);
+    background-color: #133C54;
+    color: white;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: -0.45rem;
+    right: -0.45rem;
+    display: block;
+    transition: all 0.1s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.myButton:active::after {
+  top: -.1rem;
+  right: -.1rem;
+  
+}
+.myButton:hover::after {
+  -webkit-transform: translate(-0.1rem, 0.1rem); 
+  transform: translate(-0.1rem, 0.1rem);
+}
+.myButton span {
+  display: block;
+  position: relative;
+  z-index: 2;
+}
+
+.blob-clip  {
+  transition: all 1s ease-in-out;
+  border-radius: 30% 70% 70% 30% / 30% 30% 70% 70% ;
+}
+
+.see-more .BsArrowRight {
+  transition: all 0.2s cubic-bezier( 0.14, 0.44, 0.29, 0.8 ) ;
+}
+.see-more:hover .BsArrowRight {
+  transform: translateX(4px)
 }
