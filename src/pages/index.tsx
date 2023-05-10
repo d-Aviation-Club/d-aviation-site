@@ -1,23 +1,15 @@
 import { gsap } from 'gsap';
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-import background from '../images/background.jpg'
-import { useState, useEffect, useLayoutEffect, useRef } from "react";
+import { Inter } from 'next/font/google';
+import Head from 'next/head';
+import Image from 'next/image';
+import { useLayoutEffect, useRef } from "react";
 // import Button from '@mui/material/Button';
-import { Button } from 'antd'
-import {
-  faSearch,
-  faAngleDown,
-  faAnchor,
-} from "@fortawesome/free-solid-svg-icons";
 import { BsArrowRight } from "react-icons/bs";
-import { Parallax, ParallaxLayer } from "@react-spring/parallax"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MyButton from '../components/MyButton';
+import dynamic from 'next/dynamic';
 const inter = Inter({ subsets: ['latin'] })
+
 
 export default function Home() {
   const comp = useRef(); // create a ref for the root level element (for scoping)
@@ -25,12 +17,14 @@ export default function Home() {
   gsap.registerPlugin(ScrollTrigger);
 
   useLayoutEffect(()=>{
-    const parallax = document.getElementById('parallax')
-    const cloud1 = document.getElementById('cloud1')
-    const cloud2 = document.getElementById('cloud2')
-    const cloud3 = document.getElementById('cloud3')
-    const plane = document.getElementById('plane')
-    const main = document.getElementById('main')
+    const parallax = document.getElementById('parallax')!
+    const cloud1 = document.getElementById('cloud1')!
+    const cloud2 = document.getElementById('cloud2')!
+    const cloud3 = document.getElementById('cloud3')!
+    const plane = document.getElementById('plane')!
+    const main = document.getElementById('main')!
+    const boxes = gsap.utils.toArray<HTMLElement>('.box')!
+    console.log(boxes)
     window.addEventListener("scroll", function () {
       let offset = window.pageYOffset;
       // parallax.style.backgroundPositionY = offset * 0.7 + "px";
@@ -43,7 +37,7 @@ export default function Home() {
       // plane.style.left = offset * 2 + 'px'
       // DIV 1 background will move slower than other elements on scroll.
     });
-    var textheight = document.getElementById("bigtextcn").offsetHeight * -0.08;
+    var textheight = document.getElementById("bigtextcn")!.offsetHeight * -0.08;
         console.log(textheight)
       const ctx = gsap.context((self) => {
         const parallax = document.getElementById('parallax');
@@ -100,6 +94,46 @@ export default function Home() {
               onLeave: function() { gsap.to("#plane", { scaleX: 1, rotation: 0 }) },
           }
         });   
+       
+        // boxes.forEach((box, i) => {
+        //   // const anim = gsap.fromTo(box, {autoAlpha: 0, y: 50}, {duration: 1, autoAlpha: 1, y: 0});
+        //   gsap.to(box!,{
+        //   scrollTrigger: {
+        //     trigger: box,
+        //     // animation: anim,
+        //     toggleActions: 'play none none none',
+        //     once: true,
+        //   }})
+        // });
+        gsap.utils.toArray<HTMLElement>('.box').forEach(box => {
+          gsap.fromTo(box, {
+              autoAlpha: 0, 
+              y: 50
+            }, {
+            scrollTrigger: {
+              trigger: box,
+              once: true
+            },
+            duration: 1, 
+            autoAlpha: 1, 
+            y: 0
+          });
+        });
+        gsap.utils.toArray<HTMLElement>('.box2').forEach(box => {
+          gsap.fromTo(box, {
+              autoAlpha: 0, 
+              y: 50,
+            }, {
+            scrollTrigger: {
+              trigger: box,
+              once: true,
+            },
+            duration: 1, 
+            autoAlpha: 1, 
+            y: 0,
+          });
+        });
+
       })
       return () => ctx.revert(); // cleanup
   }, [])
@@ -114,16 +148,16 @@ export default function Home() {
       </Head>
       {/* CLASSES FOR OVAL THING: h-[1000rem]  */}
       <section id='parallax' className={`z-1 h-[240vh] fixed top-0 xl:h-[240vh] bg-100vh w-full bg-[#1fa0e0] bg-center `}>
-       <Image id="parallaximg" src='/cloudedsky1.jpg' width={100} height={100} alt="plane image" className='absolute top-0 left-0 z-10 w-[100vw] h-[140vh] object-cover' unoptimized></Image>
+       <Image id="parallaximg" src='/cloudedsky1.webp' width={100} height={100} alt="plane image" className='absolute top-0 left-0 z-10 w-[100vw] h-[140vh] object-cover' unoptimized></Image>
 
         <div id="bigtextcn" className='text-[#133C54] w-full text-center absolute top-[50vh] left-[50vw] translate-y-[-50%] translate-x-[-50%] z-20 text-[10rem] max-md:text-[7.4rem]'>
-          <h1 id="text1" className=' parallaxTitle'>WELCOME TO</h1>
-          <h1 id="text2" className='parallaxTitle'>D.AVIATION</h1>
+          <h1 id="text1" className='box2 parallaxTitle'>WELCOME TO</h1>
+          <h1 id="text2" className='box2 parallaxTitle'>D.AVIATION</h1>
         </div>
-        
         <Image id="plane" src='/plane-assets/daviation-plane-xl.webp'
-        width={100} height={100} alt="plane image" className='absolute top-[50vh] left-[50vw] translate-y-[-50%] translate-x-[-50%] z-20 w-full h-auto max-w-[70rem]' blurDataURL="URL"
+        width={100} height={100} alt="plane image" className='absolute  top-[50vh] left-[50vw] translate-y-[-50%] translate-x-[-50%] z-20 w-full h-auto max-w-[70rem]' blurDataURL="URL"
         placeholder="blur" unoptimized priority></Image>
+        
       </section>
 
 
@@ -134,35 +168,37 @@ export default function Home() {
         <div className='w-[130vw] z-10  opacity-100 brightness-200	 gray-scale-[50%] absolute -top-[8rem] min-[1500px]:-top-[10rem] min-[1300px]:-top-[20rem] xsm:-top-[14rem]'>
           <Image id="cloud1" className="w-full 
           xl:w-[70%] xl:mt-[5rem]
-          -right-[80%] z-10 -left-20 absolute -top-40" src='/Clouds1.png' width={100} height={100} alt="cloudimage1"></Image>
-          <Image id="cloud2" className="w-full xl:w-[70%] xl:mt-20 -left-[10%] z-10  absolute top-0 min-[1400px]:-top-20" src='/Clouds2.png' width={100} height={100} alt="cloudimage1"></Image>
-          <Image id="cloud3" className="w-full xl:w-[40%] xl:left-[60%] lg:mt-[10rem] -left-[30%] z-10 absolute -top-40 " src='/Clouds3.png' width={100} height={100} alt="cloudimage1"></Image>
+          -right-[80%] z-10 -left-20 absolute -top-40" src='/Cloud1.webp' width={100} height={100} alt="cloudimage1"></Image>
+          <Image id="cloud2" className="w-full xl:w-[70%] xl:mt-20 -left-[10%] z-10  absolute top-0 min-[1400px]:-top-20" src='/Clouds2.webp' width={100} height={100} alt="cloudimage1"></Image>
+          <Image id="cloud3" className="w-full xl:w-[40%] xl:left-[60%] lg:mt-[10rem] -left-[30%] z-10 absolute -top-40 " src='/Clouds3.webp' width={100} height={100} alt="cloudimage1"></Image>
         </div>
         
-        <section className='z-20 max-w-[1700px] grid grid-cols-1 md:grid-cols-4 text-center md:text-start relative h-fit pt-[10rem] w-[80vw] justify-between gap-12 m-auto max-md:flex-col items-center'>
-          <div className='flex md:col-span-2 order-last md:order-first gap-4 flex-col align-start '>
-            <div className="flex flex-col gap-2 mb-4">
-              <h3 className='ml-1'>ABOUT US</h3>
-              <h1 className="text-[3rem] leading-[3.2rem]  text-[#133C54] font-bold">Educating students on <span className='text-[#FFA0A9] text-[3rem] font-bold'>aviation</span></h1>
+        <section id='section1' className='z-20 max-w-[1700px] grid grid-cols-1 md:grid-cols-4 text-center md:text-start relative h-fit pt-[10rem] w-[80vw] justify-between gap-12 m-auto max-md:flex-col items-center'>
+          <div className='firstdiv flex md:col-span-2 order-last md:order-first gap-4 flex-col align-start '>
+            <div className="box flex flex-col gap-2 mb-4">
+              <h3 className='ml-1 box'>ABOUT US</h3>
+              <h1 className="text-[3rem] box leading-[3.2rem]  text-[#133C54] font-bold">Educating students on <span className='text-[#FFA0A9] text-[3rem] font-bold'>aviation</span></h1>
             </div>
-            <p className='text-[1.1rem] font-normal	'>We are a student led aviation/drone team providing on-hands learning opportunities for students. You'll get to learn all aspects of drone building, from start to finish. These include: 3d modeling in CAD, programming for drone automation, and fabrication.  Everyone is welcome!</p>
-            <div className='w-fit max-md:m-auto'>
+            <p className='box text-[1.1rem] font-normal	'>We are a student led aviation/drone team providing on-hands learning opportunities for students. You'll get to learn all aspects of drone building, from start to finish. These include: 3d modeling in CAD, programming for drone automation, and fabrication.  Everyone is welcome!</p>
+            <div className='box w-fit max-md:m-auto'>
             <MyButton text={"Join Now!"}></MyButton>
             </div>
           </div>
-          <div className="md:col-span-2 max-md:justify-self-center max-md:max-w-[28rem] md:max-xl:min-w-[40rem] xl:justify-self-end min-[1800px]:justify-self-center rounded-md">
+          <div className="seconddiv md:col-span-2 max-md:justify-self-center max-md:max-w-[28rem] md:max-xl:min-w-[40rem] xl:justify-self-end min-[1800px]:justify-self-center rounded-md box">
             <img className='z-20 rounded-md' src="/daviation-image-blob.webp" alt="about us image" />
           </div>
         </section>
+
+
         <section className='z-20 max-w-[1700px] py-[6rem] grid grid-cols-1 md:grid-cols-4 text-center md:text-start relative h-fit w-[80vw] justify-between gap-4 m-auto max-md:flex-col items-center '>
           <div className="md:col-span-3 col-span-4 rounded-md ">
-            <img className='z-20 rounded-md' src="/drone-img.webp" alt="about us image" />
+            <img className='box z-20 rounded-md' src="/drone-img.webp" alt="about us image" />
           </div>
           <div className='flex col-span-4 md:col-span-1 gap-4 flex-col md:ditems-start items-center'>
-            <div className="flex flex-col gap-2">
+            <div className="box flex flex-col gap-2">
               <h1 className="text-[3rem] leading-[3.2rem]  text-[#133C54] font-bold">Our Drone</h1>
             </div>
-            <div className='w-fit see-more hover:brightness-120 transition-all ease-in cursor-pointer gap-2 whitespace-nowrap flex text-[#5089A8] items-center max-sm:m-auto'>
+            <div className='w-fit box see-more hover:brightness-120 cursor-pointer gap-2 whitespace-nowrap flex text-[#5089A8] items-center max-sm:m-auto'>
               See more photos
               <BsArrowRight className='stroke-1 BsArrowRight'></BsArrowRight>
             </div>

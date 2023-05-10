@@ -1,5 +1,5 @@
 import styles from '@/styles/Navbar.module.css'
-import { Button } from 'antd'
+// import { Button } from 'antd'
 import Image from 'next/image'
 import {useRef, useState, useEffect} from 'react'
 
@@ -47,7 +47,7 @@ function Navbar() {
           </span>
         </ul>
         <div>
-        <Button className={`${styles.cta} text-white bg-primary border-white`}>Join</Button>
+        <button className={`${styles.cta} border px-4 hover:bg-white rounded-sm ease-in transition-all hover:text-black py-2 text-white bg-primary border-white`}>Join</button>
         </div>
       </div>
     </div>
