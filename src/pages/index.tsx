@@ -139,7 +139,7 @@ export default function Home() {
           <Image id="cloud3" className="w-full xl:w-[40%] xl:left-[60%] lg:mt-[10rem] -left-[30%] z-10 absolute -top-40 " src='/Clouds3.png' width={100} height={100} alt="cloudimage1"></Image>
         </div>
         
-        <section className='z-20 grid grid-cols-1 md:grid-cols-4 text-center md:text-start relative h-fit pt-[10rem] w-full max-w-[80vw] justify-between gap-12 m-auto max-md:flex-col items-center'>
+        <section className='z-20 max-w-[1700px] grid grid-cols-1 md:grid-cols-4 text-center md:text-start relative h-fit pt-[10rem] w-[80vw] justify-between gap-12 m-auto max-md:flex-col items-center'>
           <div className='flex md:col-span-2 order-last md:order-first gap-4 flex-col align-start '>
             <div className="flex flex-col gap-2 mb-4">
               <h3 className='ml-1'>ABOUT US</h3>
@@ -150,15 +150,15 @@ export default function Home() {
             <MyButton text={"Join Now!"}></MyButton>
             </div>
           </div>
-          <div className="md:col-span-2 md:max-xl:min-w-[40rem] xl:justify-self-end rounded-md ">
-            <img className='z-20 md:ml-10 rounded-md' src="/daviation-image-blob.webp" alt="about us image" />
+          <div className="md:col-span-2 max-md:justify-self-center max-md:max-w-[28rem] md:max-xl:min-w-[40rem] xl:justify-self-end min-[1800px]:justify-self-center rounded-md">
+            <img className='z-20 rounded-md' src="/daviation-image-blob.webp" alt="about us image" />
           </div>
         </section>
-        <section className='z-20 py-[6rem] grid grid-cols-1 md:grid-cols-4 text-center md:text-start relative h-fit  w-full max-w-[80vw] justify-between gap-4 m-auto max-md:flex-col items-center'>
+        <section className='z-20 max-w-[1700px] py-[6rem] grid grid-cols-1 md:grid-cols-4 text-center md:text-start relative h-fit w-[80vw] justify-between gap-4 m-auto max-md:flex-col items-center '>
           <div className="md:col-span-3 col-span-4 rounded-md ">
             <img className='z-20 rounded-md' src="/drone-img.webp" alt="about us image" />
           </div>
-          <div className='flex col-span-4 md:col-span-1 gap-4 flex-col align-start '>
+          <div className='flex col-span-4 md:col-span-1 gap-4 flex-col md:ditems-start items-center'>
             <div className="flex flex-col gap-2">
               <h1 className="text-[3rem] leading-[3.2rem]  text-[#133C54] font-bold">Our Drone</h1>
             </div>
