@@ -147,7 +147,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* CLASSES FOR OVAL THING: h-[1000rem]  */}
-      <section id='parallax' className={`z-1 h-[240vh] fixed top-0 xl:h-[240vh] bg-100vh w-full bg-[#1fa0e0] bg-center `}>
+      <section id='parallax' className={`z-1 h-[100vh] fixed top-0 xl:h-[100vh] bg-100vh w-full bg-[#1fa0e0] bg-center `}>
        <Image id="parallaximg" src='/cloudedsky1.webp' width={100} height={100} alt="plane image" className='absolute top-0 left-0 z-10 w-[100vw] h-[140vh] object-cover' unoptimized></Image>
 
         <div id="bigtextcn" className='text-[#133C54] w-full text-center absolute top-[50vh] left-[50vw] translate-y-[-50%] translate-x-[-50%] z-20 text-[10rem] max-md:text-[7.4rem]'>
