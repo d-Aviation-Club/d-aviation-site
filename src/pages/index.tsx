@@ -8,6 +8,9 @@ import { useLayoutEffect, useRef } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import MyButton from '../components/MyButton';
 import dynamic from 'next/dynamic';
+import TeamsSection from '@/components/TeamsSection';
+
+
 const inter = Inter({ subsets: ['latin'] })
 
 
@@ -147,9 +150,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* CLASSES FOR OVAL THING: h-[1000rem]  */}
-      <section id='parallax' className={`z-1 h-[100vh] fixed top-0 xl:h-[100vh] bg-100vh w-full bg-[#1fa0e0] bg-center `}>
+      <section id='parallax' className={`z-1 h-[130vh] fixed top-0 xl:h-[130vh] bg-100vh w-full bg-[#1fa0e0] bg-center `}>
        <Image id="parallaximg" src='/cloudedsky1.webp' width={100} height={100} alt="plane image" className='absolute top-0 left-0 z-10 w-[100vw] h-[140vh] object-cover' unoptimized></Image>
-
         <div id="bigtextcn" className='text-[#133C54] w-full text-center absolute top-[50vh] left-[50vw] translate-y-[-50%] translate-x-[-50%] z-20 text-[10rem] max-md:text-[7.4rem]'>
           <h1 id="text1" className='box2 parallaxTitle'>WELCOME TO</h1>
           <h1 id="text2" className='box2 parallaxTitle'>D.AVIATION</h1>
@@ -157,15 +159,14 @@ export default function Home() {
         <Image id="plane" src='/plane-assets/daviation-plane-xl.webp'
         width={100} height={100} alt="plane image" className='absolute  top-[50vh] left-[50vw] translate-y-[-50%] translate-x-[-50%] z-20 w-full h-auto max-w-[70rem]' blurDataURL="URL"
         placeholder="blur" unoptimized priority></Image>
-        
       </section>
 
 
       <main id='main' className={`
       relative
-       h-full pt-20 bg-white`}
+       h-full pt-20 bg-[#F6F8FC]`}
       >
-        <div className='w-[130vw] z-10  opacity-100 brightness-200	 gray-scale-[50%] absolute -top-[8rem] min-[1500px]:-top-[10rem] min-[1300px]:-top-[20rem] xsm:-top-[14rem]'>
+        <div className='w-[130vw] z-10  opacity-100 brightness-200	 gray-scale-[50%] absolute -top-[8rem] min-[1500px]:-top-[18rem] min-[1300px]:-top-[20rem] xsm:-top-[14rem]'>
           <Image id="cloud1" className="w-full 
           xl:w-[70%] xl:mt-[5rem]
           -right-[80%] z-10 -left-20 absolute -top-40" src='/Cloud1.webp' width={100} height={100} alt="cloudimage1"></Image>
@@ -225,7 +226,7 @@ export default function Home() {
             </div>
           </div>
         </section> */}
-
+        <TeamsSection></TeamsSection>
 
         <footer className="bg-[#303356] text-gray-300">
           <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
